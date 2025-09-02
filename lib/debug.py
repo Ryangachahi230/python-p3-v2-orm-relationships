@@ -1,27 +1,20 @@
-#!/usr/bin/env python3
-
-from __init__ import CONN, CURSOR
 from department import Department
 from employee import Employee
-import ipdb
 
+# Reset tables
+Department.drop_table()
+Employee.drop_table()
+Department.create_table()
+Employee.create_table()
 
-def reset_database():
-    Employee.drop_table()
-    Department.drop_table()
-    Department.create_table()
-    Employee.create_table()
+# Create departments
+payroll = Department.create("Payroll", "Building A")
+hr = Department.create("Human Resources", "Building C")
 
-    # Create seed data
-    payroll = Department.create("Payroll", "Building A, 5th Floor")
-    human_resources = Department.create(
-        "Human Resources", "Building C, East Wing")
-    Employee.create("Amir", "Accountant", payroll.id)
-    Employee.create("Bola", "Manager", payroll.id)
-    Employee.create("Charlie", "Manager", human_resources.id)
-    Employee.create("Dani", "Benefits Coordinator", human_resources.id)
-    Employee.create("Hao", "New Hires Coordinator", human_resources.id)
+# Create employees
+e1 = Employee.create("Amir", "Accountant", payroll.id)
+e2 = Employee.create("Bola", "Manager", payroll.id)
+e3 = Employee.create("Charlie", "Manager", hr.id)
+e4 = Employee.create("Dani", "Benefits Coordinator", hr.id)
 
-
-reset_database()
-ipdb.set_trace()
+import ipdb; ipdb.set_trace()
